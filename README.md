@@ -1,2 +1,5 @@
 # CoreScript
-CoreScript is a custom language, the releases in this repo contains the editor.
+
+CoreScript is an easy-to-learn programming language that was created by Silas Abbott.
+
+Development first began on (UTC time) November 9th, 2026, 6:25 AM.
