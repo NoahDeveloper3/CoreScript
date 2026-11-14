@@ -1,0 +1,32 @@
+====================================================================
+                  CORE-SCRIPT END USER LICENSE AGREEMENT
+====================================================================
+
+Copyright (c) 2026 Silas Abbott. All rights reserved.
+
+This Software Development Kit (SDK), including the CoreScript Editor, 
+associated parsing logic, runtime executables, and interface layout 
+(collectively, the "Engine"), is the exclusive intellectual property of 
+Silas Abbott. The Engine is protected by international Copyright and 
+Trademark laws.
+
+1. GRANT OF LICENSE & USER OWNERSHIP
+You are granted a non-exclusive license to use the CoreScript Editor to 
+build, develop, compile, and execute your own custom software, scripts, 
+and games. 
+IMPORTANT: You retain 100% ownership and intellectual property rights over 
+any original games, source code (.core files), and digital assets you 
+create using this engine. Silas Abbott claims no ownership over user content.
+
+2. RESTRICTIONS
+To preserve the integrity of the architecture, you agree NOT to:
+- Decompile, disassemble, reverse-engineer, or attempt to extract the 
+  source code of the compiled Engine binaries or runtime modules.
+- Remove, alter, or obscure any proprietary copyright or trademark notices.
+- Redistribute or repackage the CoreScript IDE or runtime as a standalone 
+  competing game engine platform.
+
+3. DISCLAIMER OF WARRANTY
+THE ENGINE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR 
+IMPLIED. IN NO EVENT SHALL THE AUTHOR (SILAS ABBOTT) BE LIABLE FOR ANY 
+CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM THE USE OF THIS SOFTWARE.
