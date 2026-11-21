@@ -1,0 +1,67 @@
+name: Bug Report to Discord
+
+on:
+  repository_dispatch:
+    types: [bug-report]
+
+jobs:
+  send-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send formatted report to Discord
+        env:
+          DISCORD_WEBHOOK_URL: ${{ secrets.REPORTBUGS_WEBHOOK }}
+          REPORT_TITLE: ${{ github.event.client_payload.title }}
+          REPORT_TIME: ${{ github.event.client_payload.time_utc }}
+          REPORT_BODY: ${{ github.event.client_payload.message }}
+        run: |
+          python3 - <<'EOF'
+          from datetime import datetime, timezone
+          import json
+          import os
+          import urllib.request
+
+          WebhookUrl = os.environ.get("DISCORD_WEBHOOK_URL", "").strip()
+          if not WebhookUrl.startswith(("https://", "http://")):
+              raise RuntimeError("REPORTBUGS_WEBHOOK secret is missing or invalid.")
+
+          UtcNow = (os.environ.get("REPORT_TIME") or "").strip() or datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S UTC")
+          Title = (os.environ.get("REPORT_TITLE") or "CoreScript Bug Report").replace("```", "'''")[:250]
+          Message = (os.environ.get("REPORT_BODY") or "(No message provided)").replace("```", "'''")[:1000]
+
+          Payload = json.dumps({
+              "embeds": [
+                  {
+                      "title": "CoreScript Bug Report",
+                      "color": 0x3498DB,
+                      "fields": [
+                          {
+                              "name": "Time (UTC)",
+                              "value": f"`{UtcNow}`",
+                              "inline": False
+                          },
+                          {
+                              "name": "Details",
+                              "value": f"```\n{Message}\n```",
+                              "inline": False
+                          }
+                      ]
+                  }
+              ],
+              "allowed_mentions": {"parse": []}
+          }).encode("utf-8")
+
+          Request = urllib.request.Request(
+              WebhookUrl,
+              data=Payload,
+              headers={
+                  "Content-Type": "application/json",
+                  "User-Agent": "CoreScript-BugRelay/1.0"
+              },
+              method="POST"
+          )
+
+          with urllib.request.urlopen(Request, timeout=10) as Response:
+              if Response.status not in (200, 204):
+                  raise RuntimeError(f"Discord status: {Response.status}")
+          EOF
